@@ -2,7 +2,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 
-from users.forms import LoginForm
+from users.forms import LoginForm,RegisterForm
 from users.models import UserProfile
 from django.db.models import Q
 from django.views.generic.base import View
@@ -36,3 +36,8 @@ class LoginView (View):
                 return render (request, "index.html", {"msg": "用户名密码错误"})
         else:
             return render (request, "login.html", {"login_form":login_form})
+
+class RegisterView(View):
+    def get(self,request):
+        resiger_form=RegisterForm()
+        return render(request,"register.html")
