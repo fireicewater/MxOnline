@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
+# 自定义user 继承AbstractUser
 class UserProfile (AbstractUser):
     nick_name = models.CharField (max_length=50, verbose_name="昵称", default="")
     birthday = models.DateField (verbose_name="生日", null=True, blank=True)
@@ -30,10 +31,10 @@ class EmailVerifyRecord (models.Model):
     email = models.EmailField (max_length=50, verbose_name="邮箱")
     send_type = models.CharField (choices=(("register", "注册"), ("forget", "找回密码")), max_length=10)
     send_time = models.DateTimeField (default=datetime.now)
-
+    def __unicode__(self):
+        return '{0}({1})'.format(self.code,self.email)
 
     class Meta:
-
         verbose_name = '邮箱验证码'
         verbose_name_plural = verbose_name
 

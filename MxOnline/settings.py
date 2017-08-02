@@ -131,3 +131,10 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
+# 邮箱配置
+EMAIL_HOST="smtp.sim.com"
+EMAIL_PORT=25
+EMAIL_HOST_USER="mes.server"
+EMAIL_HOST_PASSWORD="201706@Jun"
+EMAIL_USE_TLS=False
+EMAIL_FROM=""
