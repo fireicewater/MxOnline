@@ -16,9 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.views.static import serve
+from MxOnline.settings import MEDIA_ROOT
 
 import xadmin
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView,ModifyView
+from organization.views import OrgView
 
 urlpatterns = [
     url (r'^xadmin/', xadmin.site.urls),
@@ -27,7 +30,10 @@ urlpatterns = [
     url (r'^register/$', RegisterView.as_view (), name="register"),
     url (r'^captcha/', include ('captcha.urls')),
     url (r'active/(?P<active_code>.*)/$', ActiveUserView.as_view (), name='activeuser'),
-    url (r'^forget/$', ForgetPwdView.as_view (), name="forget_pwd"),
+    url (r'^forget/$', ForgetPwdView.as_view(), name="forget_pwd"),
     url (r'reset/(?P<active_code>.*)/$', ResetView.as_view (), name='reset_pwd'),
-    url (r'modifypwd/$', ModifyView.as_view (), name='modify_pwd'),
+    url (r'modifypwd/$', ModifyView.as_view(), name='modify_pwd'),
+    url (r'org/', include("organization.urls"),namespace="org"),
+
+    url (r'media/(?P<path>.*)', serve, {"document_root":MEDIA_ROOT})
 ]
